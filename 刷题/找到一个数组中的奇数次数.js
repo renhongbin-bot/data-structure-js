@@ -36,27 +36,3 @@ function oddTwoNumber(arr) {
   console.log(eorR, eor ^ eorR)
 }
 
-// 找出重复的数并且出现的次数
-const arr1 = [1, 2, 3, 4, 5]
-const arr2 = [1, 5, 5, 2, 5]
-const arr3 = [1, 9, 6, 4, 5]
-const arr4 = [2, 2, 3, 4, 5]
-function get() {
-  const arr = [...arr1, ...arr2, ...arr3, ...arr4]
-  const arrR = []
-  const arrNum = []
-  arr.forEach(item => {
-    const indexNum = arrR.indexOf(item)
-    if (indexNum < -1) {
-      arrR.push(item)
-      arrNum.push(0)
-    }
-  })
-  arrR.forEach(item => {
-    if (arrNum.indexOf(item) > -1) {
-      arrNum[arrNum.indexOf(item)]++
-    }
-  })
-  console.log(arrR, arrNum)
-}
-get()
