@@ -1,5 +1,12 @@
-一个数组中left到right间的最大值
+// 一个数组中left到right间的最大值
 
+
+// 使用分治法求数组arr中区间[left,right]内的最大值。
+// 具体步骤如下：
+
+// 1.如果left===right，则直接返回arr[left]；
+// 2.否则，计算出中间索引mid，然后分别调用函数process()求出[left,mid]和[mid+1,right]区间内的最大值leftMax和rightMax；
+// 3.最后，返回leftMax和rightMax的最大值。
 function process(arr, left, right) {
   if (left === right) {
     return arr[left]

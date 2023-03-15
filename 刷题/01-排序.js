@@ -1,5 +1,11 @@
+// 交换数组中两个数的位置
+function swap(arr, i, j) {
+  arr[i] = arr[i] ^ arr[j]
+  arr[j] = arr[i] ^ arr[j]
+  arr[i] = arr[i] ^ arr[j]
+}
+
 // 1. 选择排序,时间复杂度O(n^2) 额外空间复杂度O(1)
-const arr = [3, 5, 2, 8, 7]
 function selectionSort(arr) {
   if (arr === null || arr.length < 2) {
     return
@@ -21,13 +27,6 @@ function bubbleSort(arr) {
   if (arr === null || arr.length < 2) {
     return
   }
-  // 交换位置
-  function swap(arr, i, j) {
-    // 异或运算交换位置
-    arr[i] = arr[i] ^ arr[j]
-    arr[j] = arr[i] ^ arr[j]
-    arr[i] = arr[i] ^ arr[j]
-  }
   for (let i = arr.length - 1; i > 0; i--) {
     for (let j = 0; j < i; j++) {
       if (arr[j] > arr[j + 1]) {
@@ -47,11 +46,6 @@ function insertionSort(arr) {
     for (let j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
       swap(arr, j, j + 1);
     }
-  }
-  function swap(arr, i, j) {
-    arr[i] = arr[i] ^ arr[j]
-    arr[j] = arr[i] ^ arr[j]
-    arr[i] = arr[i] ^ arr[j]
   }
   console.log('插入排序:' + arr)
 }
@@ -97,8 +91,39 @@ function margeSort(arr) {
   }
 }
 
+
+// 快速排序(改进版) 时间复杂度O(n * log^n) 额外空间复杂度O(log^n)
+function quickSort(arr, L, R) {
+  if (L < R) {
+    swap(arr, L + parseInt(Math.random() * (R - L + 1)), R);
+    let p = partition(arr, L, R); //划分值区域的范围,左边界和右边界
+    quickSort(arr, L, p[0] - 1); //< 区递归
+    quickSort(arr, p[1] + 1, R); //> 区 递归
+  }
+  console.log("快速排序:" + arr)
+  // 处理arr[l...r]的函数
+  // 默认以arr[r]做划分, arr[r] -> p  <p ==p >p
+  // 返回等于区域(左边界, 右边界), 所以返回一个长度为2的数组res, res[0], res[1]
+  function partition(arr, L, R) {
+    let less = L - 1; //< 区右边界
+    let more = R;
+    while (L < more) {
+      if (arr[L] < arr[R]) {
+        swap(arr, ++less, L++)
+      } else if (arr[L] > arr[R]) {
+        swap(arr, --more, L)
+      } else {
+        L++
+      }
+    }
+    swap(arr, more, R)
+    return [less + 1, more]
+  }
+}
+const arr = [3, 5, 2, 8, 7]
 selectionSort(arr)
 bubbleSort(arr)
 insertionSort(arr)
 margeSort(arr)
+quickSort(arr)
 
